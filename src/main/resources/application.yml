@@ -1,0 +1,14 @@
+spring:
+  properties:
+    host-name: localhost
+    github:
+      token: ${GithubBearer}
+  application:
+      name: good-first-issue-back
+  datasource:
+    password: SomeUselessPassword02
+    url: jdbc:postgresql://${spring.properties.host-name}:5432/uj?currentSchema=gfi
+    username: idk_user
+  jpa:
+    hibernate:
+      ddl-auto: update
