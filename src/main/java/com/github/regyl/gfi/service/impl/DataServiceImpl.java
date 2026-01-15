@@ -9,9 +9,10 @@ import com.github.regyl.gfi.controller.dto.response.DataResponseDto;
 import com.github.regyl.gfi.controller.dto.response.IssueResponseDto;
 import com.github.regyl.gfi.entity.IssueEntity;
 import com.github.regyl.gfi.entity.RepositoryEntity;
-import com.github.regyl.gfi.repository.BatchUpsertRepository;
-import com.github.regyl.gfi.repository.RepoJpaRepository;
-import com.github.regyl.gfi.repository.mapper.DataMapper;
+import com.github.regyl.gfi.model.IssueTables;
+import com.github.regyl.gfi.repository.DataRepository;
+import com.github.regyl.gfi.repository.IssueRepository;
+import com.github.regyl.gfi.repository.RepoRepository;
 import com.github.regyl.gfi.service.DataService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,16 +33,15 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class DataServiceImpl implements DataService {
 
-    private final BatchUpsertRepository<IssueEntity> issueRepository;
-    private final BatchUpsertRepository<RepositoryEntity> repoRepository;
-    private final RepoJpaRepository jpaRepoRepository;
+    private final IssueRepository issueRepository;
+    private final RepoRepository repoRepository;
     private final BiFunction<Map<String, RepositoryEntity>, GithubIssueDto, IssueEntity> issueMapper;
     private final Function<GithubRepositoryDto, RepositoryEntity> repoMapper;
-    private final DataMapper dataMapper;
+    private final DataRepository dataRepository;
 
     @Async
     @Override
-    public void save(IssueData response) {
+    public void save(IssueData response, IssueTables table) {
         if (response == null || response.getSearch() == null || CollectionUtils.isEmpty(response.getSearch().getNodes())) {
             return;
         }
@@ -51,8 +51,11 @@ public class DataServiceImpl implements DataService {
                 .map(GithubIssueDto::getRepository)
                 .map(repoMapper)
                 .collect(Collectors.toSet());
-        repoRepository.saveAll(repos);
-        Map<String, RepositoryEntity> repoCollection = jpaRepoRepository.findAll().stream() //FIXME switch to returning ids in previous step
+        repoRepository.saveAll(repos, table.getRepoTableName());
+
+        //fetching because previous "insert on conflict do nothing" does not return IDs for already existing entities
+        //FIXME but maybe change the FK from repository_id to repository_source_id to improve performance
+        Map<String, RepositoryEntity> repoCollection = repoRepository.findAll(table.getRepoTableName()).stream()
                 .collect(Collectors.toMap(RepositoryEntity::getSourceId, repo -> repo));
 
         List<IssueEntity> issues = search.getNodes().stream()
@@ -60,12 +63,12 @@ public class DataServiceImpl implements DataService {
                 .toList();
 
         log.info("Issues loaded: {}", issues.size());
-        issueRepository.saveAll(issues);
+        issueRepository.saveAll(issues, table.getIssueTableName());
     }
 
     @Override
     public DataResponseDto findAllIssues(DataRequestDto requestDto) {
-        Collection<IssueResponseDto> issues = dataMapper.findAllIssues(requestDto);
+        Collection<IssueResponseDto> issues = dataRepository.findAllIssues(requestDto);
         return new DataResponseDto(issues);
     }
 }

@@ -1,6 +1,8 @@
 package com.github.regyl.gfi.service.source;
 
+import com.github.regyl.gfi.model.IssueTables;
+
 public interface IssueSourceService {
 
-    void upload();
+    void upload(IssueTables table);
 }

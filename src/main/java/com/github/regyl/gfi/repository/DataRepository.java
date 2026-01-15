@@ -1,4 +1,4 @@
-package com.github.regyl.gfi.repository.mapper;
+package com.github.regyl.gfi.repository;
 
 import com.github.regyl.gfi.controller.dto.request.DataRequestDto;
 import com.github.regyl.gfi.controller.dto.response.IssueResponseDto;
@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 @Mapper
-public interface DataMapper {
+public interface DataRepository {
 
     List<IssueResponseDto> findAllIssues(DataRequestDto requestDto);
 }

@@ -1,4 +1,4 @@
-package com.github.regyl.gfi.model;
+package com.github.regyl.gfi.controller.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

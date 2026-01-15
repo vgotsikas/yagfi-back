@@ -33,7 +33,6 @@ Updates data every 12 minutes since GitHub rate limit allows no more
 
 # Need fix
 - supply each new query as task to task executor
-- add view and supply result to front from it. While one table is filling, other supply one hour older results
 - remove all issues with label stale by filtering the response since it contains labels
 
 # What's next

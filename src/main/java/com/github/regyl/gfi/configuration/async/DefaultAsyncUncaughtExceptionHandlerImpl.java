@@ -16,6 +16,10 @@ public class DefaultAsyncUncaughtExceptionHandlerImpl implements AsyncUncaughtEx
             ex = ex.getCause();
         }
 
-        log.error("Async uncaught exception, ex: {}, method: {}, params: {}", ex.getMessage(), method.getName(), params);
+        if (log.isDebugEnabled()) {
+            log.error("Async uncaught exception of type {} with message {}. method: {}, params: {}", ex.getClass(), ex.getMessage(), method.getName(), params);
+        } else {
+            log.error("Async uncaught exception of type {} with message {}. method: {}", ex.getClass(), ex.getMessage(), method.getName());
+        }
     }
 }

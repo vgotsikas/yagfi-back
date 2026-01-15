@@ -1,7 +1,8 @@
 package com.github.regyl.gfi.service.impl.source;
 
 import com.github.regyl.gfi.controller.dto.github.IssueData;
-import com.github.regyl.gfi.model.IssueRequestDto;
+import com.github.regyl.gfi.controller.dto.request.IssueRequestDto;
+import com.github.regyl.gfi.model.IssueTables;
 import com.github.regyl.gfi.model.LabelModel;
 import com.github.regyl.gfi.service.DataService;
 import com.github.regyl.gfi.service.label.LabelService;
@@ -75,19 +76,19 @@ public class GithubIssueSourceServiceImpl implements IssueSourceService {
     private final ThreadPoolTaskExecutor taskExecutor;
 
     @Override
-    public void upload() {
+    public void upload(IssueTables table) {
         Collection<LabelModel> labels = labelService.findAll();
         for (LabelModel label : labels) {
 
             String query = String.format("is:issue is:open no:assignee label:\"%s\"", label.getTitle());
             taskExecutor.submit(() -> {
                 IssueData response = getIssues(new IssueRequestDto(query, null));
-                dataService.save(response);
+                dataService.save(response, table);
 
                 String cursor = response.getEndCursor();
                 while (StringUtils.isNotBlank(cursor)) { //FIXME supply as new task to taskExecutor
                     response = getIssues(new IssueRequestDto(query, cursor));
-                    dataService.save(response);
+                    dataService.save(response, table);
                     cursor = response.getEndCursor();
                 }
             });

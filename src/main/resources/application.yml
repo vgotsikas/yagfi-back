@@ -11,17 +11,32 @@ spring:
       max-pool-size: 100
       core-pool-size: 20
     auto-upload:
-      enabled: false
+      enabled: true
       period-mills: 720000 # 12 minutes
+    db:
+      schema: gfi
+  flyway:
+    enabled: true
+    clean-disabled: true
+    encoding: UTF-8
+    locations: classpath:db/migration
+    sql-migration-prefix: V
+    sql-migration-separator: __
+    sql-migration-suffixes: .sql
+    validate-on-migrate: true
+    baseline-on-migrate: true
+    url: ${spring.datasource.url}
+    password: ${spring.datasource.password}
+    user: ${spring.datasource.username}
   application:
       name: good-first-issue-back
   datasource:
     password: SomeUselessPassword02
-    url: jdbc:postgresql://${spring.properties.host-name}:5432/uj?currentSchema=gfi
+    url: jdbc:postgresql://${spring.properties.host-name}:5432/uj?currentSchema=${spring.properties.db.schema}
     username: idk_user
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml

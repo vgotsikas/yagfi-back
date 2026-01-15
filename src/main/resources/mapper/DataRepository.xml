@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.github.regyl.gfi.repository.mapper.DataMapper">
+<mapper namespace="com.github.regyl.gfi.repository.DataRepository">
 
     <resultMap id="IssueResponseResultMap" type="com.github.regyl.gfi.controller.dto.response.IssueResponseDto">
         <result property="issueId" column="issueId"/>
@@ -27,8 +27,8 @@
             er.stars AS repositoryStars,
             er.description AS repositoryDescription,
             er.language AS repositoryLanguage
-        FROM gfi.e_issue ei
-        INNER JOIN gfi.e_repository er ON ei.repository_id = er.id
+        FROM gfi.issue_v ei
+        INNER JOIN gfi.repository_v er ON ei.repository_id = er.id
         <where>
             <if test="filter != null and filter.languages != null and filter.languages.values != null and filter.languages.values.size() > 0">
                 <choose>
@@ -54,20 +54,8 @@
                     <when test="filter.stars.operator != null and filter.stars.operator.name() == 'GREATER'">
                         er.stars &gt; #{filter.stars.value}
                     </when>
-                    <when test="filter.stars.operator != null and filter.stars.operator.name() == 'GREATER_OR_EQUAL'">
-                        er.stars &gt;= #{filter.stars.value}
-                    </when>
                     <when test="filter.stars.operator != null and filter.stars.operator.name() == 'LESS'">
                         er.stars &lt; #{filter.stars.value}
-                    </when>
-                    <when test="filter.stars.operator != null and filter.stars.operator.name() == 'LESS_OR_EQUAL'">
-                        er.stars &lt;= #{filter.stars.value}
-                    </when>
-                    <when test="filter.stars.operator != null and filter.stars.operator.name() == 'EQUALS'">
-                        er.stars = #{filter.stars.value}
-                    </when>
-                    <when test="filter.stars.operator != null and filter.stars.operator.name() == 'NOT_EQUALS'">
-                        er.stars != #{filter.stars.value}
                     </when>
                 </choose>
             </if>

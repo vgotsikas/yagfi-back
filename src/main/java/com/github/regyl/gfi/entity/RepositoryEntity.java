@@ -1,9 +1,5 @@
 package com.github.regyl.gfi.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -13,17 +9,13 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 @Data
-@Entity
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "e_repository")
 @EqualsAndHashCode(callSuper = true)
-@JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class RepositoryEntity extends AbstractEntity {
 
     @NotNull
-    @Column(unique = true)
     private String sourceId;
 
     @NotEmpty
@@ -35,7 +27,6 @@ public class RepositoryEntity extends AbstractEntity {
     @NotNull
     private Integer stars;
 
-    @Column(columnDefinition = "TEXT")
     private String description;
 
     private String language;
