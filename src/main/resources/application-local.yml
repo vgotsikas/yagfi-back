@@ -1,0 +1,3 @@
+spring:
+  properties:
+    host-name: localhost

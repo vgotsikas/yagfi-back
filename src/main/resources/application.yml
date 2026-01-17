@@ -4,7 +4,7 @@ server:
     context-path: /api
 spring:
   properties:
-    host-name: localhost
+    host-name: ${APP_HOST_NAME}
     github:
       token: ${GithubBearer}
     async:
