@@ -8,6 +8,7 @@
         <result property="issueUrl" column="issueUrl"/>
         <result property="issueUpdated" column="issueUpdated"/>
         <result property="issueCreated" column="issueCreated"/>
+        <result property="issueLabels" column="issueLabels"/>
         <result property="repositoryTitle" column="repositoryTitle"/>
         <result property="repositoryUrl" column="repositoryUrl"/>
         <result property="repositoryStars" column="repositoryStars"/>
@@ -22,6 +23,7 @@
             ei.url AS issueUrl,
             ei.updated_at AS issueUpdated,
             ei.created_at AS issueCreated,
+            ei.labels as issueLabels,
             er.title AS repositoryTitle,
             er.url AS repositoryUrl,
             er.stars AS repositoryStars,

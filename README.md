@@ -1,11 +1,3 @@
-<!-- TOC -->
-* [Introduction](#introduction)
-  * [Why yet another good-first-issue project?](#why-yet-another-good-first-issue-project)
-  * [Implementation](#implementation)
-  * [Frontend](#frontend)
-* [What's next](#whats-next)
-<!-- TOC -->
-
 # Introduction
 YAGFI - yet another good first issue
 <div align="center">
@@ -13,7 +5,18 @@ YAGFI - yet another good first issue
 </div>
 <div align="center">
   <a href="https://discord.gg/cggqh3Qr8d"><img src="https://img.shields.io/discord/1465432673164984567" alt="Discord"></a>
-</div>
+</div>  
+
+<!-- TOC -->
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
+* [Introduction](#introduction)
+  * [Why yet another good-first-issue project?](#why-yet-another-good-first-issue-project)
+  * [Implementation](#implementation)
+  * [Frontend](#frontend)
+* [What's next](#whats-next)
+<!-- TOC -->  
 
 Website: [yagfi.com](http://yagfi.com)
 
@@ -53,3 +56,25 @@ if you would like to fix it.
 - Pass OpenSSF Best practices https://www.bestpractices.dev/en/projects/11787/passing
 - Think about [RecGFI](https://github.com/mcxwx123/RecGFI) LLM
 - One of the main problem everyone talking about is customization. "I think people do better to work on a project they use and care about" (c) Reddit
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Ahmed-Sobh77"><img src="https://avatars.githubusercontent.com/u/145682065?v=4?s=100" width="100px;" alt="Ahmed Sobh"/><br /><sub><b>Ahmed Sobh</b></sub></a><br /><a href="https://github.com/Regyl/yagfi-back/commits?author=Ahmed-Sobh77" title="Code">💻</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!

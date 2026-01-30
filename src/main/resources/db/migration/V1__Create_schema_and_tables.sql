@@ -25,15 +25,17 @@ CREATE TABLE IF NOT EXISTS e_repository_2
     language    VARCHAR(255)
 );
 
-CREATE TABLE IF NOT EXISTS e_issue_1 (
-    id BIGSERIAL PRIMARY KEY,
-    created TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
-    source_id VARCHAR(255) NOT NULL UNIQUE,
-    title TEXT NOT NULL,
-    url VARCHAR(255) NOT NULL,
-    updated_at TIMESTAMP WITH TIME ZONE NOT NULL,
-    created_at TIMESTAMP WITH TIME ZONE NOT NULL,
-    repository_id BIGINT NOT NULL,
+CREATE TABLE IF NOT EXISTS e_issue_1
+(
+    id            BIGSERIAL PRIMARY KEY,
+    created       TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+    source_id     VARCHAR(255)             NOT NULL UNIQUE,
+    title         TEXT                     NOT NULL,
+    url           VARCHAR(255)             NOT NULL,
+    updated_at    TIMESTAMP WITH TIME ZONE NOT NULL,
+    created_at    TIMESTAMP WITH TIME ZONE NOT NULL,
+    repository_id BIGINT                   NOT NULL,
+    labels        VARCHAR[],
     CONSTRAINT fk_issue_repository FOREIGN KEY (repository_id)
         REFERENCES e_repository_1 (id)
         ON DELETE CASCADE
@@ -49,6 +51,7 @@ CREATE TABLE IF NOT EXISTS e_issue_2
     updated_at    TIMESTAMP WITH TIME ZONE NOT NULL,
     created_at    TIMESTAMP WITH TIME ZONE NOT NULL,
     repository_id BIGINT                   NOT NULL,
+    labels        VARCHAR[],
     CONSTRAINT fk_issue_repository FOREIGN KEY (repository_id)
         REFERENCES e_repository_2 (id)
         ON DELETE CASCADE
